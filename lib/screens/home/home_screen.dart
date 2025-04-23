@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Taqseem',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
         fontFamily: 'Roboto', // Use your preferred font
       ),
       home: const TaqseemScreen(),
@@ -32,12 +32,12 @@ class TaqseemScreen extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Implement search functionality
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.search),
+          //   onPressed: () {
+          //     // Implement search functionality
+          //   },
+          // ),
           IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {
@@ -68,7 +68,7 @@ class TaqseemScreen extends StatelessWidget {
                   },
                   child: const Text(
                     'See all',
-                    style: TextStyle(color: Colors.blue),
+                    style: TextStyle(color: Colors.green),
                   ),
                 ),
               ],
@@ -81,10 +81,10 @@ class TaqseemScreen extends StatelessWidget {
               child: Row(
                 children: [
                   _buildCategoryButton('All', isSelected: true),
-                  _buildCategoryButton('Medical'),
-                  _buildCategoryButton('Education'),
-                  _buildCategoryButton('Fashion'),
                   _buildCategoryButton('Food Relief'),
+                  _buildCategoryButton('Button2'),
+                  _buildCategoryButton('Button3'),
+                  _buildCategoryButton('Button4'),                  
                 ],
               ),
             ),
@@ -119,7 +119,7 @@ class TaqseemScreen extends StatelessWidget {
                     LinearProgressIndicator(
                       value: 0.75,
                       backgroundColor: Colors.grey[200],
-                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
                       minHeight: 8,
                       borderRadius: BorderRadius.circular(4),
                     ),
@@ -144,7 +144,7 @@ class TaqseemScreen extends StatelessWidget {
                                 // Handle donate action
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
+                                backgroundColor: Colors.green,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -170,7 +170,7 @@ class TaqseemScreen extends StatelessWidget {
                               },
                               child: const Text(
                                 'See all',
-                                style: TextStyle(color: Colors.blue),
+                                style: TextStyle(color: Colors.green),
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -186,7 +186,7 @@ class TaqseemScreen extends StatelessWidget {
                               ),
                               child: const Text(
                                 'Share',
-                                style: TextStyle(color: Colors.blue),
+                                style: TextStyle(color: Colors.green),
                               ),
                             ),
                           ],
@@ -216,7 +216,7 @@ class TaqseemScreen extends StatelessWidget {
       // Bottom navigation bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Colors.green,
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
@@ -245,7 +245,7 @@ class TaqseemScreen extends StatelessWidget {
         onSelected: (bool selected) {
           // Handle category selection
         },
-        selectedColor: Colors.blue,
+        selectedColor: Colors.green,
         labelStyle: TextStyle(
           color: isSelected ? Colors.white : Colors.black,
         ),
@@ -258,7 +258,7 @@ class TaqseemScreen extends StatelessWidget {
     return Column(
       children: [
         IconButton(
-          icon: Icon(icon, size: 30, color: Colors.blue),
+          icon: Icon(icon, size: 30, color: Colors.green),
           onPressed: () {
             // Handle button action
           },
