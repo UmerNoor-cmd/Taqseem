@@ -433,9 +433,10 @@ Widget _buildActionButton(IconData icon, String label) {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 6,
-              spreadRadius: 1,
+              color: Colors.black.withOpacity(0.07),
+              blurRadius: 11,
+              spreadRadius: 5,
+              offset: Offset(0, 1), // Shadow drops down slightly
             )
           ],
         ),
