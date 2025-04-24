@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens.dart';
 
 class GiveHelpScreen extends StatefulWidget {
   const GiveHelpScreen({super.key});
@@ -25,6 +26,83 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
     'address': '123 Main Street, Karachi',
     'coordinates': '24.8607° N, 67.0011° E',
   };
+
+  // Method to show hygiene standards dialog
+  void _showHygieneStandardsDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Hygiene Standards Requirements'),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'By checking this box, you confirm compliance with:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                '1. Food Freshness & Expiry',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                '• Only donate food that is not expired, spoiled, or visibly decomposed.\n'
+                '• Hot food should be donated within 2 hours of preparation.\n'
+                '• Cold/perishable food should be stored and transported below 5°C.',
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                '2. Food Packaging',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                '• Food should be properly packaged in clean, food-grade containers.\n'
+                '• No food should be in contact with newspapers or reused containers.\n'
+                '• Label the food with preparation date and time, and expiry time.',
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                '3. Food Types Allowed',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                '• No donation of:\n'
+                '  - Leftovers from customer plates\n'
+                '  - Expired, spoiled, or reheated food\n'
+                '  - Food exposed for long periods at ambient temperatures',
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {
+                        _hygieneChecked = false;
+                      });
+                    },
+                    child: const Text('Decline'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {
+                        _hygieneChecked = true;
+                      });
+                    },
+                    child: const Text('Accept'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +206,7 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
               children: [
                 ElevatedButton.icon(
                   icon: const Icon(Icons.location_on),
-                  label: const Text('Select Drop Off'),
+                  label: const Text('Select Your Location'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     foregroundColor: Colors.white,
@@ -158,7 +236,7 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                 ),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.notification_important),
-                  label: const Text('Create An Alert'),
+                  label: const Text('Deliver to an NGO'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange,
                     foregroundColor: Colors.white,
@@ -174,7 +252,7 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text('Create Alert'),
+                        title: const Text('Deliver to an NGO'),
                         content: const Text('This would create a food donation alert in the full implementation.'),
                         actions: [
                           TextButton(
@@ -282,9 +360,13 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                     title: const Text('Food prepared following hygiene standards'),
                     value: _hygieneChecked,
                     onChanged: (value) {
-                      setState(() {
-                        _hygieneChecked = value!;
-                      });
+                      if (value == true) {
+                        _showHygieneStandardsDialog();
+                      } else {
+                        setState(() {
+                          _hygieneChecked = value!;
+                        });
+                      }
                     },
                   ),
                   CheckboxListTile(
@@ -343,38 +425,26 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          if (!_hygieneChecked || !_safetyChecked) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                    'Please confirm hygiene and safety checks'),
-                              ),
-                            );
-                            return;
-                          }
-                          // Show confirmation dialog
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Donation Submitted'),
-                              content: Text(
-                                  'Thank you for donating $_quantity kg of $_foodType!'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    // In a real app, you might navigate to a different screen here
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        if (!_hygieneChecked || !_safetyChecked) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please confirm hygiene and safety checks'),
                             ),
                           );
+                          return;
                         }
-                      },
+                        // Navigate directly to TrackAlertScreen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TrackAlertScreen(foodType: _foodType, quantity: _quantity,),
+                          ),
+                        );
+                      }
+                    },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         foregroundColor: Colors.white,
