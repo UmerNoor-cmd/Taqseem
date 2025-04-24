@@ -206,7 +206,7 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
               children: [
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20,bottom: 18),
                     child: _buildActionButton(
                       Icons.volunteer_activism,
                       'Give Help',
@@ -221,7 +221,7 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
                 ),
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 7),
+                    padding: const EdgeInsets.only(left: 10, right: 7,bottom: 18),
                     child: _buildActionButton(
                       Icons.food_bank,
                       'Request Food',
@@ -236,7 +236,7 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
                 ),
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 5),
+                    padding: const EdgeInsets.only(right: 5,bottom: 18),
                     child: _buildActionButton(
                       Icons.leaderboard,
                       'Contributors',
@@ -249,11 +249,27 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
                     ),
                   ),
                 ),
+              // New Alerts button
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20,bottom: 18,left: 5),
+                    child: _buildActionButton(
+                      Icons.notifications_active,
+                      'Alerts',
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AlertPage()),
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ],
             ),
 
           
-            const SizedBox(height: 20),
+            const SizedBox(height: 0),
             
           // Auto-rotating banner card
           Card(
@@ -443,6 +459,12 @@ Widget _buildActionButton(IconData icon, String label, VoidCallback onTap) {
       buttonColor = Colors.blue.withOpacity(0.15);
       iconColor = Colors.blue[800]!;
       textColor = Colors.blue[900]!;
+      break;
+
+    case 'Alerts':
+      buttonColor = Colors.yellow.withOpacity(0.15);
+      iconColor = Colors.yellow[800]!;
+      textColor = Colors.yellow[900]!;
       break;
     default:
       buttonColor = Colors.grey.withOpacity(0.15);
