@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter_application_1/screens.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -202,31 +204,54 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // First button with right padding
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20), // Adjust right spacing
-                    child: _buildActionButton(Icons.volunteer_activism, 'Give Help'),
+                    padding: const EdgeInsets.only(left: 20),
+                    child: _buildActionButton(
+                      Icons.volunteer_activism,
+                      'Give Help',
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const GiveHelpScreen()),
+                        );
+                      },
+                    ),
                   ),
                 ),
-                
-                // Middle button with equal padding
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 25,right: 7 ), // Adjust left spacing
-                    child: _buildActionButton(Icons.food_bank, 'Request Food'),
+                    padding: const EdgeInsets.only(left: 25, right: 7),
+                    child: _buildActionButton(
+                      Icons.food_bank,
+                      'Request Food',
+                      () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => const RequestFoodScreen()),
+                        // );
+                      },
+                    ),
                   ),
                 ),
-                
-                // Last button with left padding
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 5), // Adjust left spacing
-                    child: _buildActionButton(Icons.leaderboard, 'Contributors',),
+                    padding: const EdgeInsets.only(right: 5),
+                    child: _buildActionButton(
+                      Icons.leaderboard,
+                      'Contributors',
+                      () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => const ContributorsScreen()),
+                        // );
+                      },
+                    ),
                   ),
                 ),
               ],
             ),
+
           
             const SizedBox(height: 20),
             
@@ -397,12 +422,12 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
     );
   }
 
-Widget _buildActionButton(IconData icon, String label) {
-  // Custom colors for each button
+Widget _buildActionButton(IconData icon, String label, VoidCallback onTap) {
+  // Colors setup
   final Color buttonColor;
   final Color iconColor;
   final Color textColor;
-  
+
   switch(label) {
     case 'Give Help':
       buttonColor = Colors.green.withOpacity(0.15);
@@ -420,43 +445,47 @@ Widget _buildActionButton(IconData icon, String label) {
       textColor = Colors.blue[900]!;
       break;
     default:
-      buttonColor = Colors.green.withOpacity(0.15);
-      iconColor = Colors.green;
-      textColor = Colors.green;
+      buttonColor = Colors.grey.withOpacity(0.15);
+      iconColor = Colors.grey;
+      textColor = Colors.grey[800]!;
   }
 
-  return Column(
-    children: [
-      Container(
-        decoration: BoxDecoration(
-          color: buttonColor,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.07),
-              blurRadius: 11,
-              spreadRadius: 5,
-              offset: Offset(0, 1), // Shadow drops down slightly
-            )
-          ],
+  return GestureDetector(
+    onTap: onTap,
+    child: Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: buttonColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.07),
+                blurRadius: 11,
+                spreadRadius: 5,
+                offset: Offset(0, 1),
+              )
+            ],
+          ),
+          padding: const EdgeInsets.all(12),
+          child: Icon(icon, size: 30, color: iconColor),
         ),
-        padding: const EdgeInsets.all(12),
-        child: Icon(icon, size: 30, color: iconColor),
-      ),
-      const SizedBox(height: 8),
-      Text(
-        label,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600, // Slightly bolder
-          color: textColor,
-          letterSpacing: 0.3, // Slightly more spaced letters
+        const SizedBox(height: 8),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: textColor,
+            letterSpacing: 0.3,
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
+
 
   @override
   void dispose() {
