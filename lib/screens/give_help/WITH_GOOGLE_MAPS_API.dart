@@ -13,7 +13,7 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
   LatLng? _currentLocation;
   String? _foodType;
   double? _quantity;
-  List<String> _selectedPhotos = [];
+  final List<String> _selectedPhotos = [];
   bool _hygieneChecked = false;
   bool _safetyChecked = false;
   String _deliveryStatus = 'Not Started';
@@ -89,15 +89,16 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                     const SizedBox(height: 4),
                     Text(
                       donator['orgName'],
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[600],
-                      ),
+                      style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                     ),
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        const Icon(Icons.verified, color: Colors.green, size: 16),
+                        const Icon(
+                          Icons.verified,
+                          color: Colors.green,
+                          size: 16,
+                        ),
                         const SizedBox(width: 4),
                         Text(
                           'Verified Account since ${donator['verifiedSince']}',
@@ -166,10 +167,7 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                 children: [
                   const Text(
                     'Food Donation Details',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
@@ -216,14 +214,16 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                     spacing: 8,
                     runSpacing: 8,
                     children: [
-                      ..._selectedPhotos.map((photo) => Chip(
-                            label: Text(photo),
-                            onDeleted: () {
-                              setState(() {
-                                _selectedPhotos.remove(photo);
-                              });
-                            },
-                          )),
+                      ..._selectedPhotos.map(
+                        (photo) => Chip(
+                          label: Text(photo),
+                          onDeleted: () {
+                            setState(() {
+                              _selectedPhotos.remove(photo);
+                            });
+                          },
+                        ),
+                      ),
                       IconButton(
                         icon: const Icon(Icons.add_a_photo),
                         onPressed: () {
@@ -237,14 +237,13 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                   // Hygiene/Safety Checklist
                   const Text(
                     'Hygiene & Safety Checklist',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 12),
                   CheckboxListTile(
-                    title: const Text('Food prepared following hygiene standards'),
+                    title: const Text(
+                      'Food prepared following hygiene standards',
+                    ),
                     value: _hygieneChecked,
                     onChanged: (value) {
                       setState(() {
@@ -266,10 +265,7 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                   // Delivery Status
                   const Text(
                     'Delivery Status',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
@@ -315,7 +311,8 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text(
-                                    'Please confirm hygiene and safety checks'),
+                                  'Please confirm hygiene and safety checks',
+                                ),
                               ),
                             );
                             return;
