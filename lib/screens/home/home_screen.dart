@@ -36,10 +36,14 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
   final PageController _pageController = PageController();
   Timer? _timer;
 
+  final List<Widget> _screens = [
+    const HomeScreen(),
+    const ProfileScreen(),
+  ];
+
   @override
   void initState() {
     super.initState();
-    // Start automatic page rotation
     _startTimer();
   }
 
@@ -62,241 +66,297 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Taqseem',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(16),
-          ),
-        ),
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(
+        _currentNavIndex == 0 ? 'Taqseem' : 'Profile',
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+      backgroundColor: _currentNavIndex == 0 ? null : const Color.fromARGB(0, 252, 251, 251),
+      elevation: _currentNavIndex == 0 ? null : 0,
+      shape: _currentNavIndex == 0 
+          ? const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(16),
+              ),
+            )
+          : null,
+        automaticallyImplyLeading: false, // Optional
+        toolbarHeight: _currentNavIndex == 1 ? 1 : null, // technically optional due to PreferredSize
+    
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {},
-          ),
+          if (_currentNavIndex == 0)
+            IconButton(
+              icon: const Icon(Icons.notifications),
+              onPressed: () {},
+            ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Main project card
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+      body: _screens[_currentNavIndex],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              spreadRadius: 2,
+            )
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+          child: BottomNavigationBar(
+            currentIndex: _currentNavIndex,
+            selectedItemColor: Colors.green,
+            unselectedItemColor: Colors.grey,
+            onTap: (index) {
+              setState(() {
+                _currentNavIndex = index;
+              });
+            },
+            elevation: 10,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Taqseem Food Relief Network',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      '5,225 kg food rescued from waste',
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: LinearProgressIndicator(
-                        value: 0.75,
-                        backgroundColor: Colors.grey[200],
-                        valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
-                        minHeight: 10,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              '5,225 Donators',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            const Text(
-                              '2 days left',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            const SizedBox(height: 12),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(24),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 12),
-                              ),
-                              child: const Text(
-                                'Donate Now',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const SizedBox(height: 4),
-                            const SizedBox(height: 12),
-                            Padding( 
-                              padding: const EdgeInsets.only(top: 45),
-                              child: OutlinedButton(
-                                onPressed: () {},
-                                style: OutlinedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(24),
-                                  ),
-                                  side: const BorderSide(color: Colors.green),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 24, vertical: 12),
-                                ),
-                                child: const Text(
-                                  'Share',
-                                  style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
               ),
-            ),
-            
-            const SizedBox(height: 40),
-            
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20,bottom: 18),
-                    child: _buildActionButton(
-                      Icons.volunteer_activism,
-                      'Give Help',
-                      () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const GiveHelpScreen()),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 7,bottom: 18),
-                    child: _buildActionButton(
-                      Icons.food_bank,
-                      'Request Food',
-                      () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => const RequestFoodScreen()),
-                        // );
-                      },
-                    ),
-                  ),
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 5,bottom: 18),
-                    child: _buildActionButton(
-                      Icons.leaderboard,
-                      'Contributors',
-                      () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => const ContributorsScreen()),
-                        // );
-                      },
-                    ),
-                  ),
-                ),
-              // New Alerts button
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20,bottom: 18,left: 5),
-                    child: _buildActionButton(
-                      Icons.notifications_active,
-                      'Alerts',
-                      () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const AlertPage()),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-          
-            const SizedBox(height: 0),
-            
-          // Auto-rotating banner card
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final PageController _pageController = PageController();
+    int _currentPage = 0;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Main project card
           Card(
             elevation: 4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            clipBehavior: Clip.antiAlias, // Ensures image respects card's rounded corners
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Taqseem Food Relief Network',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    '5,225 kg food rescued from waste',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: LinearProgressIndicator(
+                      value: 0.75,
+                      backgroundColor: Colors.grey[200],
+                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
+                      minHeight: 10,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            '5,225 Donators',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            '2 days left',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          const SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 12),
+                            ),
+                            child: const Text(
+                              'Donate Now',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const SizedBox(height: 4),
+                          const SizedBox(height: 12),
+                          Padding( 
+                            padding: const EdgeInsets.only(top: 45),
+                            child: OutlinedButton(
+                              onPressed: () {},
+                              style: OutlinedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                side: const BorderSide(color: Colors.green),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24, vertical: 12),
+                              ),
+                              child: const Text(
+                                'Share',
+                                style: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
+          const SizedBox(height: 40),
+          
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20,bottom: 18),
+                  child: _buildActionButton(
+                    Icons.volunteer_activism,
+                    'Give Help',
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const GiveHelpScreen()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 7,bottom: 18),
+                  child: _buildActionButton(
+                    Icons.food_bank,
+                    'Request Food',
+                    () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => const RequestFoodScreen()),
+                      // );
+                    },
+                  ),
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 5,bottom: 18),
+                  child: _buildActionButton(
+                    Icons.leaderboard,
+                    'Contributors',
+                    () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => const ContributorsScreen()),
+                      // );
+                    },
+                  ),
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 20,bottom: 18,left: 5),
+                  child: _buildActionButton(
+                    Icons.notifications_active,
+                    'Alerts',
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const AlertPage()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 0),
+          
+          Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            clipBehavior: Clip.antiAlias,
             child: Column(
               children: [
-                // Image Section (now takes 70% of card)
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2, // Adjust this value
+                  height: MediaQuery.of(context).size.height * 0.2,
                   child: PageView(
                     controller: _pageController,
                     onPageChanged: (int page) {
-                      setState(() {
-                        _currentPage = page;
-                      });
+                      _currentPage = page;
                     },
                     children: [
-                      // Slide 1 - Top Contributors
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('assets/images/banner_2.jpg'),
-                            fit: BoxFit.cover, // Fills entire container
+                            fit: BoxFit.cover,
                           ),
                         ),
                         child: Center(
@@ -313,12 +373,11 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
                           ),
                         ),
                       ),
-                      // Slide 2 - Top NGO
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('assets/images/banner_1.jpg'),
-                            fit: BoxFit.cover, // Fills entire container
+                            fit: BoxFit.cover,
                           ),
                         ),
                         child: Center(
@@ -338,40 +397,38 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
                     ],
                   ),
                 ),
-                // Indicator dots
                 Container(
-                height: 28, // Slightly taller container
-                margin: const EdgeInsets.only(top: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(2, (index) {
-                    return AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                      width: _currentPage == index ? 24 : 8, // Active dot is wider
-                      height: 8,
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4), // Slightly rounded
-                        color: _currentPage == index 
-                          ? Colors.green[700] 
-                          : Colors.green.withOpacity(0.3),
-                        boxShadow: _currentPage == index
-                          ? [
-                              BoxShadow(
-                                color: Colors.green.withOpacity(0.2),
-                                blurRadius: 4,
-                                spreadRadius: 1,
-                              )
-                            ]
-                          : null,
-                      ),
-                    );
-                  }),
+                  height: 28,
+                  margin: const EdgeInsets.only(top: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(2, (index) {
+                      return AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        width: _currentPage == index ? 24 : 8,
+                        height: 8,
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: _currentPage == index 
+                            ? Colors.green[700] 
+                            : Colors.green.withOpacity(0.3),
+                          boxShadow: _currentPage == index
+                            ? [
+                                BoxShadow(
+                                  color: Colors.green.withOpacity(0.2),
+                                  blurRadius: 4,
+                                  spreadRadius: 1,
+                                )
+                              ]
+                            : null,
+                        ),
+                      );
+                    }),
+                  ),
                 ),
-              ),
-                // Text content
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -394,125 +451,515 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
               ],
             ),
           ),
-          ],
-        ),
-      ),
-  
-      
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              spreadRadius: 2,
-            )
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-          child: BottomNavigationBar(
-            currentIndex: _currentNavIndex,
-            selectedItemColor: Colors.green,
-            unselectedItemColor: Colors.grey,
-            onTap: (index) {
-              setState(() {
-                _currentNavIndex = index;
-              });
-              // Add your navigation logic here
-            },
-            elevation: 10,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
-          ),
-        ),
+        ],
       ),
     );
   }
 
-Widget _buildActionButton(IconData icon, String label, VoidCallback onTap) {
-  // Colors setup
-  final Color buttonColor;
-  final Color iconColor;
-  final Color textColor;
+  Widget _buildActionButton(IconData icon, String label, VoidCallback onTap) {
+    final Color buttonColor;
+    final Color iconColor;
+    final Color textColor;
 
-  switch(label) {
-    case 'Give Help':
-      buttonColor = Colors.green.withOpacity(0.15);
-      iconColor = Colors.green[800]!;
-      textColor = Colors.green[900]!;
-      break;
-    case 'Request Food':
-      buttonColor = Colors.orange.withOpacity(0.15);
-      iconColor = Colors.orange[800]!;
-      textColor = Colors.orange[900]!;
-      break;
-    case 'Contributors':
-      buttonColor = Colors.blue.withOpacity(0.15);
-      iconColor = Colors.blue[800]!;
-      textColor = Colors.blue[900]!;
-      break;
+    switch(label) {
+      case 'Give Help':
+        buttonColor = Colors.green.withOpacity(0.15);
+        iconColor = Colors.green[800]!;
+        textColor = Colors.green[900]!;
+        break;
+      case 'Request Food':
+        buttonColor = Colors.orange.withOpacity(0.15);
+        iconColor = Colors.orange[800]!;
+        textColor = Colors.orange[900]!;
+        break;
+      case 'Contributors':
+        buttonColor = Colors.blue.withOpacity(0.15);
+        iconColor = Colors.blue[800]!;
+        textColor = Colors.blue[900]!;
+        break;
+      case 'Alerts':
+        buttonColor = Colors.yellow.withOpacity(0.15);
+        iconColor = Colors.yellow[800]!;
+        textColor = Colors.yellow[900]!;
+        break;
+      default:
+        buttonColor = Colors.grey.withOpacity(0.15);
+        iconColor = Colors.grey;
+        textColor = Colors.grey[800]!;
+    }
 
-    case 'Alerts':
-      buttonColor = Colors.yellow.withOpacity(0.15);
-      iconColor = Colors.yellow[800]!;
-      textColor = Colors.yellow[900]!;
-      break;
-    default:
-      buttonColor = Colors.grey.withOpacity(0.15);
-      iconColor = Colors.grey;
-      textColor = Colors.grey[800]!;
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: buttonColor,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.07),
+                  blurRadius: 11,
+                  spreadRadius: 5,
+                  offset: const Offset(0, 1),
+                )
+              ],
+            ),
+            padding: const EdgeInsets.all(12),
+            child: Icon(icon, size: 30, color: iconColor),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: textColor,
+              letterSpacing: 0.3,
+            ),
+          ),
+        ],
+      ),
+    );
   }
-
-  return GestureDetector(
-    onTap: onTap,
-    child: Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: buttonColor,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.07),
-                blurRadius: 11,
-                spreadRadius: 5,
-                offset: Offset(0, 1),
-              )
-            ],
-          ),
-          padding: const EdgeInsets.all(12),
-          child: Icon(icon, size: 30, color: iconColor),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: textColor,
-            letterSpacing: 0.3,
-          ),
-        ),
-      ],
-    ),
-  );
 }
 
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final PageController _reviewController = PageController();
+  int _currentReview = 0;
+  Timer? _reviewTimer;
+
+  final List<Map<String, dynamic>> _reviews = [
+    {
+      'name': 'Anonymous',
+      'time': '10 minutes ago',
+      'rating': 4,
+      'text': 'The food was fresh, well-packed, and of great quality. We truly appreciate the thoughtful contribution.',
+      'avatar': Icons.person,
+    },
+    {
+      'name': 'Sarah M.',
+      'time': '2 hours ago',
+      'rating': 5,
+      'text': 'Excellent service! The delivery was on time and everything was in perfect condition. Highly recommend!',
+      'avatar': Icons.person_outline,
+    },
+    {
+      'name': 'Community Center',
+      'time': '1 day ago',
+      'text': 'This donation helped feed 50 families in our community. Thank you for your generosity!',
+      'rating': 4,
+      'avatar': Icons.people,
+    },
+    {
+      'name': 'Mohammed A.',
+      'time': '3 days ago',
+      'rating': 3,
+      'text': 'Good overall, but some items were close to expiry. Still very grateful for the donation.',
+      'avatar': Icons.person_2,
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _startReviewTimer();
+  }
+
+  void _startReviewTimer() {
+    _reviewTimer = Timer.periodic(const Duration(seconds: 8), (Timer timer) {
+      if (_currentReview < _reviews.length - 1) {
+        _currentReview++;
+      } else {
+        _currentReview = 0;
+      }
+      
+      if (_reviewController.hasClients) {
+        _reviewController.animateToPage(
+          _currentReview,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
 
   @override
   void dispose() {
-    _timer?.cancel();
-    _pageController.dispose();
+    _reviewTimer?.cancel();
+    _reviewController.dispose();
     super.dispose();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.green,
+                    width: 1,
+                  ),
+                ),
+                child: const CircleAvatar(
+                  radius: 30,
+                  backgroundImage: AssetImage('assets/images/profile.jpg'),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    children: [
+                      Text(
+                        'Kiki Anne',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.amber, size: 18),
+                          Icon(Icons.star, color: Colors.amber, size: 18),
+                          Icon(Icons.star, color: Colors.amber, size: 18),
+                          Icon(Icons.star, color: Colors.amber, size: 18),
+                          Icon(Icons.star_half, color: Colors.amber, size: 18),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.green.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.green,
+                            width: 1,
+                          ),
+                        ),
+                        child: const Row(
+                          children: [
+                            Icon(Icons.verified, color: Colors.green, size: 16),
+                            SizedBox(width: 4),
+                            Text(
+                              'Verified',
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
+                          ),
+                        ),
+                        child: Text(
+                          '4.5/5',
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          
+          Column(
+            children: [
+              _buildProfileOption('Regular donation', 'New', Icons.autorenew),
+              _buildProfileOption('Settings', null, Icons.settings),
+              _buildProfileOption('Past Donations', null, Icons.history),
+              _buildProfileOption('Terms & Condition', null, Icons.description),
+              _buildProfileOption('View Your Ratings', null, Icons.star_rate),
+            ],
+          ),
+                    
+          const SizedBox(height: 0),
+          Container(
+            margin: const EdgeInsets.only(bottom: 24),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 10,
+                  spreadRadius: 2,
+                ),
+              ],
+              border: Border.all(
+                color: Colors.grey.withOpacity(0.3),
+                width: 1.5,
+              ),
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 240, // Increased height to prevent overflow
+                  child: PageView.builder(
+                    controller: _reviewController,
+                    onPageChanged: (int page) {
+                      setState(() {
+                        _currentReview = page;
+                      });
+                    },
+                    itemCount: _reviews.length,
+                    itemBuilder: (context, index) {
+                      final review = _reviews[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: CircleAvatar(
+                                    radius: 24,
+                                    backgroundColor: Colors.grey[200],
+                                    child: Icon(review['avatar'], color: Colors.grey[600]),
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        review['name'],
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        children: [
+                                          for (int i = 0; i < 5; i++)
+                                            Icon(
+                                              i < review['rating'] 
+                                                ? Icons.star 
+                                                : Icons.star_border,
+                                              color: Colors.amber,
+                                              size: 18,
+                                            ),
+                                          const SizedBox(width: 6),
+                                          Text(
+                                            '${review['rating']}/5',
+                                            style: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        review['time'],
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            SizedBox(
+                              height: 60, // Fixed height for review text
+                              child: SingleChildScrollView(
+                                child: Text(
+                                  review['text'],
+                                  style: const TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green[50],
+                                  foregroundColor: Colors.green,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    side: BorderSide(
+                                      color: Colors.green,
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 32,
+                                    vertical: 12,
+                                  ),
+                                  elevation: 3,
+                                ),
+                                child: const Text(
+                                  'Share',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Container(
+                  height: 5,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(_reviews.length, (index) {
+                      return AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        width: _currentReview == index ? 24 : 8,
+                        height: 8,
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: _currentReview == index 
+                            ? Colors.green[700] 
+                            : Colors.green.withOpacity(0.3),
+                          boxShadow: _currentReview == index
+                            ? [
+                                BoxShadow(
+                                  color: Colors.green.withOpacity(0.2),
+                                  blurRadius: 4,
+                                  spreadRadius: 1,
+                                )
+                              ]
+                            : null,
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfileOption(String title, String? tag, IconData icon) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 0.5,
+          ),
+        ],
+        border: Border.all(
+          color: Colors.grey.withOpacity(0.10),
+          width: 1,
+        ),
+      ),
+      child: ListTile(
+        leading: Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: Colors.green.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Colors.green.withOpacity(0.3),
+              width: 1,
+            ),
+          ),
+          child: Icon(icon, color: Colors.green),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        trailing: tag != null 
+          ? Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.green.withOpacity(0.2),
+                    blurRadius: 4,
+                    spreadRadius: 1,
+                  ),
+                ],
+              ),
+              child: Text(
+                tag,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          : const Icon(Icons.chevron_right, color: Colors.grey),
+        onTap: () {
+          // Handle option tap
+        },
+      ),
+    );
+  }
 }
+
+

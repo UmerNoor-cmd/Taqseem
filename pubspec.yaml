@@ -28,4 +28,6 @@ flutter:
   assets:
     - assets/images/banner_1.jpg
     - assets/images/banner_2.jpg
+    - assets/images/profile.jpg
+
     # Add more images as needed
