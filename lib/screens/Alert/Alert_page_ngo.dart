@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AlertPageNgo extends StatefulWidget {
-  const AlertPageNgo({Key? key}) : super(key: key);
+  const AlertPageNgo({super.key});
 
   @override
   State<AlertPageNgo> createState() => _AlertPageNgoState();
