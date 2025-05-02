@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_application_1/screens.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -14,10 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Taqseem',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        fontFamily: 'Roboto',
-      ),
+      theme: ThemeData(primarySwatch: Colors.green, fontFamily: 'Roboto'),
       home: const TaqseemScreen(),
     );
   }
@@ -36,10 +32,7 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
   final PageController _pageController = PageController();
   Timer? _timer;
 
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const ProfileScreen(),
-  ];
+  final List<Widget> _screens = [const HomeScreen(), const ProfileScreen()];
 
   @override
   void initState() {
@@ -54,7 +47,7 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
       } else {
         _currentPage = 0;
       }
-      
+
       if (_pageController.hasClients) {
         _pageController.animateToPage(
           _currentPage,
@@ -66,31 +59,35 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
   }
 
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text(
-        _currentNavIndex == 0 ? 'Taqseem' : 'Profile',
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-      backgroundColor: _currentNavIndex == 0 ? null : const Color.fromARGB(0, 252, 251, 251),
-      elevation: _currentNavIndex == 0 ? null : 0,
-      shape: _currentNavIndex == 0 
-          ? const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(16),
-              ),
-            )
-          : null,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          _currentNavIndex == 0 ? 'Taqseem' : 'Profile',
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor:
+            _currentNavIndex == 0
+                ? null
+                : const Color.fromARGB(0, 252, 251, 251),
+        elevation: _currentNavIndex == 0 ? null : 0,
+        shape:
+            _currentNavIndex == 0
+                ? const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(16),
+                  ),
+                )
+                : null,
         automaticallyImplyLeading: false, // Optional
-        toolbarHeight: _currentNavIndex == 1 ? 1 : null, // technically optional due to PreferredSize
-    
+        toolbarHeight:
+            _currentNavIndex == 1
+                ? 1
+                : null, // technically optional due to PreferredSize
+
         actions: [
           if (_currentNavIndex == 0)
-            IconButton(
-              icon: const Icon(Icons.notifications),
-              onPressed: () {},
-            ),
+            IconButton(icon: const Icon(Icons.notifications), onPressed: () {}),
         ],
       ),
       body: _screens[_currentNavIndex],
@@ -101,7 +98,7 @@ Widget build(BuildContext context) {
               color: Colors.black.withOpacity(0.1),
               blurRadius: 10,
               spreadRadius: 2,
-            )
+            ),
           ],
         ),
         child: ClipRRect(
@@ -117,10 +114,7 @@ Widget build(BuildContext context) {
             },
             elevation: 10,
             items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),
                 label: 'Profile',
@@ -145,8 +139,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PageController _pageController = PageController();
-    int _currentPage = 0;
+    final PageController pageController = PageController();
+    int currentPage = 0;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
@@ -175,23 +169,23 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   const Text(
                     '5,225 kg food rescued from waste',
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
+                    style: TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(height: 16),
-                  
+
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: LinearProgressIndicator(
                       value: 0.75,
                       backgroundColor: Colors.grey[200],
-                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        Colors.green,
+                      ),
                       minHeight: 10,
                     ),
                   ),
                   const SizedBox(height: 12),
-                  
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -219,7 +213,9 @@ class HomeScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(24),
                               ),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 12),
+                                horizontal: 24,
+                                vertical: 12,
+                              ),
                             ),
                             child: const Text(
                               'Donate Now',
@@ -236,7 +232,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           const SizedBox(height: 4),
                           const SizedBox(height: 12),
-                          Padding( 
+                          Padding(
                             padding: const EdgeInsets.only(top: 45),
                             child: OutlinedButton(
                               onPressed: () {},
@@ -246,7 +242,9 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 side: const BorderSide(color: Colors.green),
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 12),
+                                  horizontal: 24,
+                                  vertical: 12,
+                                ),
                               ),
                               child: const Text(
                                 'Share',
@@ -265,22 +263,24 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          
+
           const SizedBox(height: 40),
-          
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20,bottom: 18),
+                  padding: const EdgeInsets.only(left: 20, bottom: 18),
                   child: _buildActionButton(
                     Icons.volunteer_activism,
                     'Give Help',
                     () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const GiveHelpScreen()),
+                        MaterialPageRoute(
+                          builder: (context) => const GiveHelpScreen(),
+                        ),
                       );
                     },
                   ),
@@ -288,22 +288,22 @@ class HomeScreen extends StatelessWidget {
               ),
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 7,bottom: 18),
-                  child: _buildActionButton(
-                    Icons.food_bank,
-                    'Request Food',
-                    () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => const RequestFoodScreen()),
-                      // );
-                    },
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                    right: 7,
+                    bottom: 18,
                   ),
+                  child: _buildActionButton(Icons.food_bank, 'Request Food', () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const RequestFoodScreen()),
+                    // );
+                  }),
                 ),
               ),
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 5,bottom: 18),
+                  padding: const EdgeInsets.only(right: 5, bottom: 18),
                   child: _buildActionButton(
                     Icons.leaderboard,
                     'Contributors',
@@ -318,14 +318,20 @@ class HomeScreen extends StatelessWidget {
               ),
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 20,bottom: 18,left: 5),
+                  padding: const EdgeInsets.only(
+                    right: 20,
+                    bottom: 18,
+                    left: 5,
+                  ),
                   child: _buildActionButton(
                     Icons.notifications_active,
                     'Alerts',
                     () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const AlertPage()),
+                        MaterialPageRoute(
+                          builder: (context) => const AlertPage(),
+                        ),
                       );
                     },
                   ),
@@ -335,7 +341,7 @@ class HomeScreen extends StatelessWidget {
           ),
 
           const SizedBox(height: 0),
-          
+
           Card(
             elevation: 4,
             shape: RoundedRectangleBorder(
@@ -347,9 +353,9 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.2,
                   child: PageView(
-                    controller: _pageController,
+                    controller: pageController,
                     onPageChanged: (int page) {
-                      _currentPage = page;
+                      currentPage = page;
                     },
                     children: [
                       Container(
@@ -367,7 +373,7 @@ class HomeScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               shadows: [
-                                Shadow(blurRadius: 10, color: Colors.black)
+                                Shadow(blurRadius: 10, color: Colors.black),
                               ],
                             ),
                           ),
@@ -388,7 +394,7 @@ class HomeScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               shadows: [
-                                Shadow(blurRadius: 10, color: Colors.black)
+                                Shadow(blurRadius: 10, color: Colors.black),
                               ],
                             ),
                           ),
@@ -406,23 +412,25 @@ class HomeScreen extends StatelessWidget {
                       return AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
-                        width: _currentPage == index ? 24 : 8,
+                        width: currentPage == index ? 24 : 8,
                         height: 8,
                         margin: const EdgeInsets.symmetric(horizontal: 4),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
-                          color: _currentPage == index 
-                            ? Colors.green[700] 
-                            : Colors.green.withOpacity(0.3),
-                          boxShadow: _currentPage == index
-                            ? [
-                                BoxShadow(
-                                  color: Colors.green.withOpacity(0.2),
-                                  blurRadius: 4,
-                                  spreadRadius: 1,
-                                )
-                              ]
-                            : null,
+                          color:
+                              currentPage == index
+                                  ? Colors.green[700]
+                                  : Colors.green.withOpacity(0.3),
+                          boxShadow:
+                              currentPage == index
+                                  ? [
+                                    BoxShadow(
+                                      color: Colors.green.withOpacity(0.2),
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                                  : null,
                         ),
                       );
                     }),
@@ -461,7 +469,7 @@ class HomeScreen extends StatelessWidget {
     final Color iconColor;
     final Color textColor;
 
-    switch(label) {
+    switch (label) {
       case 'Give Help':
         buttonColor = Colors.green.withOpacity(0.15);
         iconColor = Colors.green[800]!;
@@ -502,7 +510,7 @@ class HomeScreen extends StatelessWidget {
                   blurRadius: 11,
                   spreadRadius: 5,
                   offset: const Offset(0, 1),
-                )
+                ),
               ],
             ),
             padding: const EdgeInsets.all(12),
@@ -542,20 +550,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
       'name': 'Anonymous',
       'time': '10 minutes ago',
       'rating': 4,
-      'text': 'The food was fresh, well-packed, and of great quality. We truly appreciate the thoughtful contribution.',
+      'text':
+          'The food was fresh, well-packed, and of great quality. We truly appreciate the thoughtful contribution.',
       'avatar': Icons.person,
     },
     {
       'name': 'Sarah M.',
       'time': '2 hours ago',
       'rating': 5,
-      'text': 'Excellent service! The delivery was on time and everything was in perfect condition. Highly recommend!',
+      'text':
+          'Excellent service! The delivery was on time and everything was in perfect condition. Highly recommend!',
       'avatar': Icons.person_outline,
     },
     {
       'name': 'Community Center',
       'time': '1 day ago',
-      'text': 'This donation helped feed 50 families in our community. Thank you for your generosity!',
+      'text':
+          'This donation helped feed 50 families in our community. Thank you for your generosity!',
       'rating': 4,
       'avatar': Icons.people,
     },
@@ -563,7 +574,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       'name': 'Mohammed A.',
       'time': '3 days ago',
       'rating': 3,
-      'text': 'Good overall, but some items were close to expiry. Still very grateful for the donation.',
+      'text':
+          'Good overall, but some items were close to expiry. Still very grateful for the donation.',
       'avatar': Icons.person_2,
     },
   ];
@@ -581,7 +593,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       } else {
         _currentReview = 0;
       }
-      
+
       if (_reviewController.hasClients) {
         _reviewController.animateToPage(
           _currentReview,
@@ -611,10 +623,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.green,
-                    width: 1,
-                  ),
+                  border: Border.all(color: Colors.green, width: 1),
                 ),
                 child: const CircleAvatar(
                   radius: 30,
@@ -650,14 +659,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.green.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.green,
-                            width: 1,
-                          ),
+                          border: Border.all(color: Colors.green, width: 1),
                         ),
                         child: const Row(
                           children: [
@@ -675,14 +684,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       const SizedBox(width: 8),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 1,
-                          ),
+                          border: Border.all(color: Colors.grey, width: 1),
                         ),
                         child: Text(
                           '4.5/5',
@@ -699,17 +708,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
           const SizedBox(height: 24),
-          
+
           Column(
             children: [
-              _buildProfileOption('Regular donation', 'New', Icons.autorenew),
-              _buildProfileOption('Settings', null, Icons.settings),
-              _buildProfileOption('Past Donations', null, Icons.history),
-              _buildProfileOption('Terms & Condition', null, Icons.description),
-              _buildProfileOption('View Your Ratings', null, Icons.star_rate),
+              _buildProfileOption(
+                'Regular donation',
+                'New',
+                Icons.autorenew,
+                () {},
+              ),
+              _buildProfileOption('Settings', null, Icons.settings, () {}),
+              _buildProfileOption('Past Donations', null, Icons.history, () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PastDonationScreen(),
+                  ),
+                );
+              }),
+              _buildProfileOption(
+                'Terms & Condition',
+                null,
+                Icons.description,
+                () {},
+              ),
+              _buildProfileOption(
+                'View Your Ratings',
+                null,
+                Icons.star_rate,
+                () {},
+              ),
             ],
           ),
-                    
+
           const SizedBox(height: 0),
           Container(
             margin: const EdgeInsets.only(bottom: 24),
@@ -731,7 +762,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 240, // Increased height to prevent overflow
+                  height: 240,
                   child: PageView.builder(
                     controller: _reviewController,
                     onPageChanged: (int page) {
@@ -761,13 +792,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: CircleAvatar(
                                     radius: 24,
                                     backgroundColor: Colors.grey[200],
-                                    child: Icon(review['avatar'], color: Colors.grey[600]),
+                                    child: Icon(
+                                      review['avatar'],
+                                      color: Colors.grey[600],
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         review['name'],
@@ -781,9 +816,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         children: [
                                           for (int i = 0; i < 5; i++)
                                             Icon(
-                                              i < review['rating'] 
-                                                ? Icons.star 
-                                                : Icons.star_border,
+                                              i < review['rating']
+                                                  ? Icons.star
+                                                  : Icons.star_border,
                                               color: Colors.amber,
                                               size: 18,
                                             ),
@@ -811,7 +846,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             const SizedBox(height: 16),
                             SizedBox(
-                              height: 60, // Fixed height for review text
+                              height: 60,
                               child: SingleChildScrollView(
                                 child: Text(
                                   review['text'],
@@ -868,18 +903,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         margin: const EdgeInsets.symmetric(horizontal: 4),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
-                          color: _currentReview == index 
-                            ? Colors.green[700] 
-                            : Colors.green.withOpacity(0.3),
-                          boxShadow: _currentReview == index
-                            ? [
-                                BoxShadow(
-                                  color: Colors.green.withOpacity(0.2),
-                                  blurRadius: 4,
-                                  spreadRadius: 1,
-                                )
-                              ]
-                            : null,
+                          color:
+                              _currentReview == index
+                                  ? Colors.green[700]
+                                  : Colors.green.withOpacity(0.3),
+                          boxShadow:
+                              _currentReview == index
+                                  ? [
+                                    BoxShadow(
+                                      color: Colors.green.withOpacity(0.2),
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                                  : null,
                         ),
                       );
                     }),
@@ -893,7 +930,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildProfileOption(String title, String? tag, IconData icon) {
+  Widget _buildProfileOption(
+    String title,
+    String? tag,
+    IconData icon,
+    VoidCallback onTap,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -906,10 +948,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             spreadRadius: 0.5,
           ),
         ],
-        border: Border.all(
-          color: Colors.grey.withOpacity(0.10),
-          width: 1,
-        ),
+        border: Border.all(color: Colors.grey.withOpacity(0.10), width: 1),
       ),
       child: ListTile(
         leading: Container(
@@ -917,49 +956,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
           decoration: BoxDecoration(
             color: Colors.green.withOpacity(0.1),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: Colors.green.withOpacity(0.3),
-              width: 1,
-            ),
+            border: Border.all(color: Colors.green.withOpacity(0.3), width: 1),
           ),
           child: Icon(icon, color: Colors.green),
         ),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        trailing: tag != null 
-          ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.green.withOpacity(0.2),
-                    blurRadius: 4,
-                    spreadRadius: 1,
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
+        trailing:
+            tag != null
+                ? Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
                   ),
-                ],
-              ),
-              child: Text(
-                tag,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            )
-          : const Icon(Icons.chevron_right, color: Colors.grey),
-        onTap: () {
-          // Handle option tap
-        },
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.green.withOpacity(0.2),
+                        blurRadius: 4,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    tag,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
+                : const Icon(Icons.chevron_right, color: Colors.grey),
+        onTap: onTap,
       ),
     );
   }
 }
-
-

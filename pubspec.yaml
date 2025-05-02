@@ -15,7 +15,8 @@ dependencies:
   google_maps_flutter: ^2.2.3
   geolocator: ^9.0.2
   image_picker: ^0.8.7
-
+  intl: ^0.20.2
+  table_calendar: ^3.0.9
 
 dev_dependencies:
   flutter_test:
@@ -29,5 +30,6 @@ flutter:
     - assets/images/banner_1.jpg
     - assets/images/banner_2.jpg
     - assets/images/profile.jpg
+
 
     # Add more images as needed
