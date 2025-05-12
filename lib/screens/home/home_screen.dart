@@ -10,14 +10,18 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Taqseem',
-      theme: ThemeData(primarySwatch: Colors.green, fontFamily: 'Roboto'),
-      home: const TaqseemScreen(),
-    );
+    Widget build(BuildContext context) {
+      return MaterialApp(
+        title: 'Taqseem',
+        theme: ThemeData(
+          primarySwatch: Colors.green, // This can stay as is or you can create a custom swatch
+          primaryColor: const Color(0xFF40df46), // Add this line for the primary color
+          fontFamily: 'Roboto',
+        ),
+        home: const TaqseemScreen(),
+      );
+    }
   }
-}
 
 class TaqseemScreen extends StatefulWidget {
   const TaqseemScreen({super.key});
@@ -66,25 +70,19 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
           _currentNavIndex == 0 ? 'Taqseem' : 'Profile',
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor:
-            _currentNavIndex == 0
-                ? null
-                : const Color.fromARGB(0, 252, 251, 251),
+        backgroundColor: _currentNavIndex == 0 
+            ? const Color(0xFF40df46) // Use the new color here
+            : const Color.fromARGB(0, 252, 251, 251),
         elevation: _currentNavIndex == 0 ? null : 0,
-        shape:
-            _currentNavIndex == 0
-                ? const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(16),
-                  ),
+        shape: _currentNavIndex == 0
+            ? const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(16),
                 )
-                : null,
-        automaticallyImplyLeading: false, // Optional
-        toolbarHeight:
-            _currentNavIndex == 1
-                ? 1
-                : null, // technically optional due to PreferredSize
-
+            )
+            : null,
+        automaticallyImplyLeading: false,
+        toolbarHeight: _currentNavIndex == 1 ? 1 : null,
         actions: [
           if (_currentNavIndex == 0)
             IconButton(icon: const Icon(Icons.notifications), onPressed: () {}),
