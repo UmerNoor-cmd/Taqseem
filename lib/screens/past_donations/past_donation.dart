@@ -118,7 +118,7 @@ class _PastDonationScreenState extends State<PastDonationScreen> {
         ),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: Colors.green,
       ),
       body: Column(
         children: [
@@ -471,23 +471,23 @@ class _PastDonationScreenState extends State<PastDonationScreen> {
             ),
           ),
 
-          // Fixed Back Button at bottom
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: Colors.white,
-            child: ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1B5E20),
-                foregroundColor: Colors.white,
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: const Text('Back to Home', style: TextStyle(fontSize: 16)),
-            ),
-          ),
+          // // Fixed Back Button at bottom
+          // Container(
+          //   padding: const EdgeInsets.all(16),
+          //   color: Colors.white,
+          //   child: ElevatedButton(
+          //     onPressed: () => Navigator.pop(context),
+          //     style: ElevatedButton.styleFrom(
+          //       backgroundColor: const Color(0xFF1B5E20),
+          //       foregroundColor: Colors.white,
+          //       minimumSize: const Size(double.infinity, 50),
+          //       shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(8),
+          //       ),
+          //     ),
+          //     child: const Text('Back to Home', style: TextStyle(fontSize: 16)),
+          //   ),
+          // ),
         ],
       ),
     );
