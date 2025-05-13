@@ -1,16 +1,50 @@
 import 'package:flutter/material.dart';
 
 class AlertPageNgo extends StatefulWidget {
-  const AlertPageNgo({super.key});
+  final int? initialTab; // 0 for Available, 1 for Required
+
+  const AlertPageNgo({super.key, this.initialTab = 1});
 
   @override
   State<AlertPageNgo> createState() => _AlertPageNgoState();
 }
 
+
+
+
 class _AlertPageNgoState extends State<AlertPageNgo> {
   int _currentSection = 1; // 1 = Required (default), 0 = Available
   final ScrollController _availableController = ScrollController();
   final ScrollController _requiredController = ScrollController();
+
+  // Add this method to build detail rows
+  Widget _buildDetailRow(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: Colors.grey[600]),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: Colors.grey[800],
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
+  @override
+  void initState() {
+    super.initState();
+    // Use the initialTab parameter or default to 1 (Required)
+    _currentSection = widget.initialTab ?? 1;
+  }
 
   final List<Map<String, dynamic>> _availableFoods = [
     {
@@ -210,13 +244,7 @@ class _AlertPageNgoState extends State<AlertPageNgo> {
           isAvailableSection: true,
           context: context,
           onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('This feature is available for donors only'),
-                backgroundColor: Colors.red,
-                duration: Duration(seconds: 2),
-              ),
-            );
+            Navigator.pop(context); // Go back to GiveHelpScreen
           },
         );
       },
@@ -258,31 +286,32 @@ class _AlertPageNgoState extends State<AlertPageNgo> {
     );
   }
 
-  Widget _buildFoodCard({
-    required String title,
-    required String location,
-    required String details,
-    required String time,
-    required double rating,
-    bool accepted = false,
-    required String buttonText,
-    required bool isAvailableSection,
-    required BuildContext context,
-    required VoidCallback onPressed,
-  }) {
-    return Card(
-      elevation: 1,
-      margin: const EdgeInsets.only(bottom: 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
+Widget _buildFoodCard({
+  required String title,
+  required String location,
+  required String details,
+  required String time,
+  required double rating,
+  bool accepted = false,
+  required String buttonText,
+  required bool isAvailableSection,
+  required BuildContext context,
+  required VoidCallback onPressed,
+}) {
+  return Card(
+    elevation: 1,
+    margin: const EdgeInsets.only(bottom: 16),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
                   title,
                   style: const TextStyle(
                     fontSize: 18,
@@ -290,73 +319,69 @@ class _AlertPageNgoState extends State<AlertPageNgo> {
                     color: Colors.black,
                   ),
                 ),
-                Row(
-                  children: [
-                    const Icon(Icons.star, color: Colors.amber, size: 18),
-                    const SizedBox(width: 4),
-                    Text(
-                      rating.toString(),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.star, color: Colors.amber, size: 18),
+                  const SizedBox(width: 4),
+                  Text(
+                    rating.toString(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            _buildDetailRow(Icons.location_on, location),
-            const SizedBox(height: 8),
-            _buildDetailRow(
-              isAvailableSection ? Icons.fastfood : Icons.people,
-              details,
-            ),
-            const SizedBox(height: 8),
-            _buildDetailRow(Icons.access_time, time),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: isAvailableSection ? null : onPressed,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      isAvailableSection
-                          ? Colors.grey[300]
-                          : (accepted ? Colors.green[100] : Colors.green),
-                  foregroundColor: accepted ? Colors.green : Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 12),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          _buildDetailRow(Icons.location_on, location),
+          const SizedBox(height: 8),
+          _buildDetailRow(
+            isAvailableSection ? Icons.fastfood : Icons.people,
+            details,
+          ),
+          const SizedBox(height: 8),
+          _buildDetailRow(Icons.access_time, time),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: isAvailableSection
+                  ? () {
+                      Navigator.pop(context); // Go back to GiveHelpScreen
+                    }
+                  : onPressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isAvailableSection
+                    ? Colors.green
+                    : (accepted ? Colors.green[100] : Colors.green),
+                foregroundColor: isAvailableSection
+                    ? Colors.white
+                    : (accepted ? Colors.green : Colors.white),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
-                  accepted ? "Accepted" : buttonText,
-                  style: TextStyle(
-                    color:
-                        isAvailableSection
-                            ? Colors.grey
-                            : (accepted ? Colors.green : Colors.white),
-                    fontWeight: FontWeight.bold,
-                  ),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              child: Text(
+                isAvailableSection ? "Accept Pickup" : 
+                  (accepted ? "Accepted" : buttonText),
+                style: TextStyle(
+                  color: isAvailableSection
+                      ? Colors.white
+                      : (accepted ? Colors.green : Colors.white),
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget _buildDetailRow(IconData icon, String text) {
-    return Row(
-      children: [
-        Icon(icon, size: 18, color: Colors.grey[600]),
-        const SizedBox(width: 8),
-        Text(text, style: TextStyle(color: Colors.grey[800], fontSize: 15)),
-      ],
-    );
-  }
+    ),
+  );
+}
 
   void _showAddAlertDialog(BuildContext context) {
     final TextEditingController titleController = TextEditingController();

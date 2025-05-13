@@ -62,67 +62,81 @@ class _TaqseemScreenState extends State<TaqseemScreen> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _currentNavIndex == 0 ? 'Taqseem' : 'Profile',
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: _currentNavIndex == 0 
-            ? const Color(0xFF40df46) // Use the new color here
-            : const Color.fromARGB(0, 252, 251, 251),
-        elevation: _currentNavIndex == 0 ? null : 0,
-        shape: _currentNavIndex == 0
-            ? const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(16),
-                )
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: _currentNavIndex == 0 
+          ? Container(
+              padding: const EdgeInsets.only(top: 0.1, bottom: 4), // Adjust this value to move logo up/down
+              child: Image.asset(
+                'assets/icons/cropped_image.png',
+                height: 45, // Optimal size for most app bars
+                fit: BoxFit.contain,
+              ),
             )
-            : null,
-        automaticallyImplyLeading: false,
-        toolbarHeight: _currentNavIndex == 1 ? 1 : null,
-        actions: [
-          if (_currentNavIndex == 0)
-            IconButton(icon: const Icon(Icons.notifications), onPressed: () {}),
+          : const SizedBox.shrink(),
+      centerTitle: true, // Ensures logo is centered
+      backgroundColor: _currentNavIndex == 0 
+          ? const Color(0xFF40df46)
+          : const Color.fromARGB(0, 252, 251, 251),
+      elevation: _currentNavIndex == 0 ? 4 : 0, // Made elevation explicit
+      shape: _currentNavIndex == 0
+          ? const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(16),
+              )
+          )
+          : null,
+      automaticallyImplyLeading: false,
+      toolbarHeight: _currentNavIndex == 0 ? 60: 1, // Increased for logo space
+      actions: [
+        if (_currentNavIndex == 0)
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0), // Better icon spacing
+            child: IconButton(
+              icon: const Icon(Icons.notifications),
+              onPressed: () {},
+              iconSize: 26, // Slightly larger icon
+            ),
+          ),
+      ],
+    ),
+    body: _screens[_currentNavIndex],
+    bottomNavigationBar: Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 2,
+          ),
         ],
       ),
-      body: _screens[_currentNavIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              spreadRadius: 2,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        child: BottomNavigationBar(
+          currentIndex: _currentNavIndex,
+          selectedItemColor: Colors.green,
+          unselectedItemColor: Colors.grey,
+          onTap: (index) {
+            setState(() {
+              _currentNavIndex = index;
+            });
+          },
+          elevation: 10,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
             ),
           ],
         ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-          child: BottomNavigationBar(
-            currentIndex: _currentNavIndex,
-            selectedItemColor: Colors.green,
-            unselectedItemColor: Colors.grey,
-            onTap: (index) {
-              setState(() {
-                _currentNavIndex = index;
-              });
-            },
-            elevation: 10,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
-          ),
-        ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   @override
   void dispose() {

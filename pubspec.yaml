@@ -39,6 +39,6 @@ flutter:
     - assets/images/banner_1.jpg
     - assets/images/banner_2.jpg
     - assets/images/profile.jpg
-
+    - assets/icons/cropped_image.png
 
     # Add more images as needed
