@@ -117,7 +117,7 @@ Widget build(BuildContext context) {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
         child: BottomNavigationBar(
           currentIndex: _currentNavIndex,
-          selectedItemColor: Colors.green,
+          selectedItemColor: const Color(0xFF40df46),
           unselectedItemColor: Colors.grey,
           onTap: (index) {
             setState(() {
@@ -191,7 +191,7 @@ class HomeScreen extends StatelessWidget {
                       value: 0.75,
                       backgroundColor: Colors.grey[200],
                       valueColor: const AlwaysStoppedAnimation<Color>(
-                        Colors.green,
+                        Color(0xFF40df46),
                       ),
                       minHeight: 10,
                     ),
@@ -220,7 +220,7 @@ class HomeScreen extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
+                              backgroundColor: const Color(0xFF40df46),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(24),
                               ),
@@ -252,7 +252,7 @@ class HomeScreen extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(24),
                                 ),
-                                side: const BorderSide(color: Colors.green),
+                                side: const BorderSide(color: Color(0xFF40df46)),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 24,
                                   vertical: 12,
@@ -261,7 +261,7 @@ class HomeScreen extends StatelessWidget {
                               child: const Text(
                                 'Share',
                                 style: TextStyle(
-                                  color: Colors.green,
+                                  color: Color(0xFF40df46),
                                   fontSize: 16,
                                 ),
                               ),
@@ -431,13 +431,13 @@ class HomeScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4),
                           color:
                               currentPage == index
-                                  ? Colors.green[700]
-                                  : Colors.green.withOpacity(0.3),
+                                  ? const Color(0xFF40df46)
+                                  : const Color(0xFF40df46).withOpacity(0.3),
                           boxShadow:
                               currentPage == index
                                   ? [
                                     BoxShadow(
-                                      color: Colors.green.withOpacity(0.2),
+                                      color: const Color(0xFF40df46).withOpacity(0.2),
                                       blurRadius: 4,
                                       spreadRadius: 1,
                                     ),
@@ -483,9 +483,9 @@ class HomeScreen extends StatelessWidget {
 
     switch (label) {
       case 'Give Help':
-        buttonColor = Colors.green.withOpacity(0.15);
-        iconColor = Colors.green[800]!;
-        textColor = Colors.green[900]!;
+        buttonColor = const Color(0xFF40df46).withOpacity(0.15);
+        iconColor = const Color(0xFF40df46);
+        textColor = const Color(0xFF40df46);
         break;
       case 'Request Food':
         buttonColor = Colors.orange.withOpacity(0.15);
@@ -635,7 +635,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.green, width: 1),
+                  border: Border.all(color: const Color(0xFF40df46), width: 1),
                 ),
                 child: const CircleAvatar(
                   radius: 30,
@@ -676,18 +676,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           vertical: 2,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.green.withOpacity(0.1),
+                          color: const Color(0xFF40df46).withOpacity(0.1),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.green, width: 1),
+                          border: Border.all(color: const Color(0xFF40df46), width: 1),
                         ),
                         child: const Row(
                           children: [
-                            Icon(Icons.verified, color: Colors.green, size: 16),
+                            Icon(Icons.verified, color: Color(0xFF40df46), size: 16),
                             SizedBox(width: 4),
                             Text(
                               'Verified',
                               style: TextStyle(
-                                color: Colors.green,
+                                color: Color(0xFF40df46),
                                 fontSize: 12,
                               ),
                             ),
@@ -874,12 +874,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: ElevatedButton(
                                 onPressed: () {},
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.green[50],
-                                  foregroundColor: Colors.green,
+                                  backgroundColor: const Color(0xFF40df46).withOpacity(0.1),
+                                  foregroundColor: const Color(0xFF40df46),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(24),
                                     side: BorderSide(
-                                      color: Colors.green,
+                                      color: const Color(0xFF40df46),
                                       width: 1.5,
                                     ),
                                   ),
@@ -888,6 +888,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     vertical: 12,
                                   ),
                                   elevation: 3,
+                                  shadowColor: const Color(0xFF40df46).withOpacity(0.0001), // Added shadow color
                                 ),
                                 child: const Text(
                                   'Share',
@@ -917,13 +918,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderRadius: BorderRadius.circular(4),
                           color:
                               _currentReview == index
-                                  ? Colors.green[700]
-                                  : Colors.green.withOpacity(0.3),
+                                  ? const Color(0xFF40df46)
+                                  : const Color(0xFF40df46).withOpacity(0.3),
                           boxShadow:
                               _currentReview == index
                                   ? [
                                     BoxShadow(
-                                      color: Colors.green.withOpacity(0.2),
+                                      color: const Color(0xFF40df46).withOpacity(0.2),
                                       blurRadius: 4,
                                       spreadRadius: 1,
                                     ),
@@ -966,11 +967,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         leading: Container(
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: Colors.green.withOpacity(0.1),
+            color: const Color(0xFF40df46).withOpacity(0.1),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.green.withOpacity(0.3), width: 1),
+            border: Border.all(color: const Color(0xFF40df46).withOpacity(0.3), width: 1),
           ),
-          child: Icon(icon, color: Colors.green),
+          child: Icon(icon, color: const Color(0xFF40df46)),
         ),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
         trailing:
@@ -981,11 +982,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: const Color(0xFF40df46),
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.green.withOpacity(0.2),
+                        color: const Color(0xFF40df46).withOpacity(0.2),
                         blurRadius: 4,
                         spreadRadius: 1,
                       ),

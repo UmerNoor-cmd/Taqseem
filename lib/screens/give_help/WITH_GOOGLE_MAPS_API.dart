@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_application_1/screens.dart';
 
 class GiveHelpScreen extends StatefulWidget {
   const GiveHelpScreen({super.key});
@@ -10,21 +11,150 @@ class GiveHelpScreen extends StatefulWidget {
 
 class _GiveHelpScreenState extends State<GiveHelpScreen> {
   final _formKey = GlobalKey<FormState>();
-  LatLng? _currentLocation;
+  String? _currentLocation = "Current Location: Not specified";
   String? _foodType;
   double? _quantity;
   final List<String> _selectedPhotos = [];
   bool _hygieneChecked = false;
   bool _safetyChecked = false;
   String _deliveryStatus = 'Not Started';
+  
+  // Map-related variables
+  late GoogleMapController _mapController;
+  LatLng? _selectedLocation;
+  final Set<Marker> _markers = {};
 
-  // Mock donator data (replace with your actual data)
-  final Map<String, dynamic> donator = {
-    'name': 'Your Location',
-    'orgName': 'Service Lane Restaurant',
-    'verifiedSince': 'May 01 2023',
-    'location': const LatLng(24.8607, 67.0011), // Karachi coordinates
-  };
+  void _onMapTap(LatLng location) {
+    setState(() {
+      _selectedLocation = location;
+      _markers.removeWhere((marker) => marker.markerId.value == 'selected_location');
+      _markers.add(
+        Marker(
+          markerId: const MarkerId('selected_location'),
+          position: location,
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+          infoWindow: InfoWindow(
+            title: 'Selected Location',
+            snippet: '${location.latitude.toStringAsFixed(4)}, ${location.longitude.toStringAsFixed(4)}',
+          ),
+        ),
+      );
+    });
+  }
+
+  void _selectLocation() {
+    if (_selectedLocation != null) {
+      setState(() {
+        _currentLocation = 
+            "Selected Location: ${_selectedLocation!.latitude.toStringAsFixed(4)}° N, "
+            "${_selectedLocation!.longitude.toStringAsFixed(4)}° E";
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Location selected')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please tap on the map to select a location first')),
+      );
+    }
+  }
+
+  // Method to update map with NGO location
+  void _updateWithNGOLocation(LatLng location, String title) {
+    setState(() {
+      _markers.clear();
+      _markers.add(
+        Marker(
+          markerId: MarkerId(title),
+          position: location,
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          infoWindow: InfoWindow(title: title),
+        ),
+      );
+      _currentLocation = "NGO Location: ${location.latitude.toStringAsFixed(4)}° N, "
+          "${location.longitude.toStringAsFixed(4)}° E";
+    });
+    _mapController.animateCamera(
+      CameraUpdate.newLatLngZoom(location, 15),
+    );
+  }
+
+  // Method to show hygiene standards dialog
+  void _showHygieneStandardsDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Hygiene Standards Requirements'),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'By checking this box, you confirm compliance with:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                '1. Food Freshness & Expiry',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                '• Only donate food that is not expired, spoiled, or visibly decomposed.\n'
+                '• Hot food should be donated within 2 hours of preparation.\n'
+                '• Cold/perishable food should be stored and transported below 5°C.',
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                '2. Food Packaging',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                '• Food should be properly packaged in clean, food-grade containers.\n'
+                '• No food should be in contact with newspapers or reused containers.\n'
+                '• Label the food with preparation date and time, and expiry time.',
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                '3. Food Types Allowed',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                '• No donation of:\n'
+                '  - Leftovers from customer plates\n'
+                '  - Expired, spoiled, or reheated food\n'
+                '  - Food exposed for long periods at ambient temperatures',
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {
+                        _hygieneChecked = false;
+                      });
+                    },
+                    child: const Text('Decline'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {
+                        _hygieneChecked = true;
+                      });
+                    },
+                    child: const Text('Accept'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,73 +171,45 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
             // Map Section
             SizedBox(
               height: 250,
-              child: GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  target: donator['location'],
-                  zoom: 15,
+              child: Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                markers: {
-                  Marker(
-                    markerId: const MarkerId('donator_location'),
-                    position: donator['location'],
-                    infoWindow: InfoWindow(title: donator['name']),
-                  ),
-                  if (_currentLocation != null)
-                    Marker(
-                      markerId: const MarkerId('current_location'),
-                      position: _currentLocation!,
-                      icon: BitmapDescriptor.defaultMarkerWithHue(
-                        BitmapDescriptor.hueBlue,
-                      ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: GoogleMap(
+                    initialCameraPosition: const CameraPosition(
+                      target: LatLng(24.8607, 67.0011),
+                      zoom: 12,
                     ),
-                },
-                myLocationEnabled: true,
-                myLocationButtonEnabled: true,
-                onMapCreated: (controller) {
-                  // Get current location (implement your location service)
-                  // setState(() => _currentLocation = ...);
-                },
+                    markers: _markers,
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: true,
+                    onMapCreated: (controller) {
+                      _mapController = controller;
+                    },
+                    onTap: _onMapTap,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 20),
 
-            // Donator Info
+            // Location Status
             Card(
               elevation: 3,
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
                   children: [
-                    Text(
-                      donator['name'],
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    const Icon(Icons.location_on, color: Colors.blue),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        _currentLocation!,
+                        style: const TextStyle(fontSize: 16),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      donator['orgName'],
-                      style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.verified,
-                          color: Colors.green,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          'Verified Account since ${donator['verifiedSince']}',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.green,
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),
@@ -121,7 +223,7 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
               children: [
                 ElevatedButton.icon(
                   icon: const Icon(Icons.location_on),
-                  label: const Text('Select Drop Off'),
+                  label: const Text('Select Your Location'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     foregroundColor: Colors.white,
@@ -133,13 +235,11 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                       vertical: 12,
                     ),
                   ),
-                  onPressed: () {
-                    // Implement drop off selection
-                  },
+                  onPressed: _selectLocation,
                 ),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.notification_important),
-                  label: const Text('Create An Alert'),
+                  label: const Text('Deliver to an NGO'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange,
                     foregroundColor: Colors.white,
@@ -151,8 +251,19 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                       vertical: 12,
                     ),
                   ),
-                  onPressed: () {
-                    // Implement alert creation
+                  onPressed: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AlertPageNgo(initialTab: 1),
+                      ),
+                    );
+                    
+                    if (result != null && result is Map<String, dynamic>) {
+                      final location = result['location'] as LatLng;
+                      final title = result['title'] as String;
+                      _updateWithNGOLocation(location, title);
+                    }
                   },
                 ),
               ],
@@ -209,7 +320,6 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 8),
-                  // Photo upload section
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
@@ -227,14 +337,16 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                       IconButton(
                         icon: const Icon(Icons.add_a_photo),
                         onPressed: () {
-                          // Implement photo selection
+                          setState(() {
+                            _selectedPhotos.add(
+                              'Photo ${_selectedPhotos.length + 1}',
+                            );
+                          });
                         },
                       ),
                     ],
                   ),
                   const SizedBox(height: 20),
-
-                  // Hygiene/Safety Checklist
                   const Text(
                     'Hygiene & Safety Checklist',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -246,9 +358,13 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                     ),
                     value: _hygieneChecked,
                     onChanged: (value) {
-                      setState(() {
-                        _hygieneChecked = value!;
-                      });
+                      if (value == true) {
+                        _showHygieneStandardsDialog();
+                      } else {
+                        setState(() {
+                          _hygieneChecked = value!;
+                        });
+                      }
                     },
                   ),
                   CheckboxListTile(
@@ -261,8 +377,6 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                     },
                   ),
                   const SizedBox(height: 20),
-
-                  // Delivery Status
                   const Text(
                     'Delivery Status',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -299,8 +413,6 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                     ),
                   ),
                   const SizedBox(height: 24),
-
-                  // Submit Button
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -317,7 +429,15 @@ class _GiveHelpScreenState extends State<GiveHelpScreen> {
                             );
                             return;
                           }
-                          // Submit the donation
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TrackAlertScreen(
+                                foodType: _foodType,
+                                quantity: _quantity,
+                              ),
+                            ),
+                          );
                         }
                       },
                       style: ElevatedButton.styleFrom(

@@ -18,7 +18,7 @@ class TrackAlertScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Track Your Alert'),
-        backgroundColor: Colors.green,
+        backgroundColor: const Color(0xFF40df46),
       ),
       body: Center(
         child: Padding(
@@ -28,7 +28,7 @@ class TrackAlertScreen extends StatelessWidget {
             children: [
               const Icon(
                 Icons.check_circle_outline,
-                color: Colors.green,
+                color: const Color(0xFF40df46),
                 size: 100,
               ),
               const SizedBox(height: 20),
@@ -78,7 +78,7 @@ class TrackAlertScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                    backgroundColor: const Color(0xFF40df46),
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
@@ -94,6 +94,9 @@ class TrackAlertScreen extends StatelessWidget {
                   // Navigate back to home
                   Navigator.popUntil(context, (route) => route.isFirst);
                 },
+                style: TextButton.styleFrom(
+                  foregroundColor: const Color(0xFF40df46),
+                ),
                 child: const Text('Back to home'),
               ),
             ],

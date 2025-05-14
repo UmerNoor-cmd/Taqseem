@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AlertPageNgo extends StatefulWidget {
   final int? initialTab; // 0 for Available, 1 for Required
@@ -155,7 +156,7 @@ class _AlertPageNgoState extends State<AlertPageNgo> {
                             fontWeight: FontWeight.bold,
                             color:
                                 _currentSection == 0
-                                    ? Colors.green
+                                    ? const Color(0xFF40df46)
                                     : Colors.grey,
                           ),
                         ),
@@ -193,7 +194,7 @@ class _AlertPageNgoState extends State<AlertPageNgo> {
                             fontWeight: FontWeight.bold,
                             color:
                                 _currentSection == 1
-                                    ? Colors.green
+                                    ? const Color(0xFF40df46)
                                     : Colors.grey,
                           ),
                         ),
@@ -251,40 +252,47 @@ class _AlertPageNgoState extends State<AlertPageNgo> {
     );
   }
 
-  Widget _buildRequiredSection() {
-    return ListView.builder(
-      controller: _requiredController,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      itemCount: _requiredFoods.length,
-      itemBuilder: (context, index) {
-        return _buildFoodCard(
-          title: _requiredFoods[index]['title']!,
-          location: _requiredFoods[index]['location']!,
-          details: _requiredFoods[index]['details']!,
-          time: _requiredFoods[index]['time']!,
-          rating: _requiredFoods[index]['rating']!,
-          accepted: _requiredFoods[index]['accepted']!,
-          buttonText: "Accept Request",
-          isAvailableSection: false,
-          context: context,
-          onPressed: () {
-            setState(() {
-              _requiredFoods[index]['accepted'] = true;
-            });
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'Accepted request from ${_requiredFoods[index]['title']}',
-                ),
-                backgroundColor: Colors.green,
-                duration: const Duration(seconds: 2),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
+Widget _buildRequiredSection() {
+  return ListView.builder(
+    controller: _requiredController,
+    padding: const EdgeInsets.symmetric(horizontal: 12),
+    itemCount: _requiredFoods.length,
+    itemBuilder: (context, index) {
+      return _buildFoodCard(
+        title: _requiredFoods[index]['title']!,
+        location: _requiredFoods[index]['location']!,
+        details: _requiredFoods[index]['details']!,
+        time: _requiredFoods[index]['time']!,
+        rating: _requiredFoods[index]['rating']!,
+        accepted: _requiredFoods[index]['accepted']!,
+        buttonText: "Accept Request",
+        isAvailableSection: false,
+        context: context,
+        onPressed: () {
+          setState(() {
+            _requiredFoods[index]['accepted'] = true;
+          });
+          
+          // Return NGO location data when accepted
+          Navigator.pop(context, {
+            'location': LatLng(
+              24.8607 + (index * 0.01), 
+              67.0011 + (index * 0.01)
+            ),
+            'title': _requiredFoods[index]['title'],
+          });
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Accepted request from ${_requiredFoods[index]['title']}'),
+              backgroundColor: const Color(0xFF40df46),
+            ),
+          );
+        },
+      );
+    },
+  );
+}
 
 Widget _buildFoodCard({
   required String title,
@@ -355,11 +363,11 @@ Widget _buildFoodCard({
                   : onPressed,
               style: ElevatedButton.styleFrom(
                 backgroundColor: isAvailableSection
-                    ? Colors.green
-                    : (accepted ? Colors.green[100] : Colors.green),
+                    ? const Color(0xFF40df46)
+                    : (accepted ? const Color(0xFF40df46) : const Color(0xFF40df46)),
                 foregroundColor: isAvailableSection
                     ? Colors.white
-                    : (accepted ? Colors.green : Colors.white),
+                    : (accepted ? const Color(0xFF40df46) : Colors.white),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -371,7 +379,7 @@ Widget _buildFoodCard({
                 style: TextStyle(
                   color: isAvailableSection
                       ? Colors.white
-                      : (accepted ? Colors.green : Colors.white),
+                      : (accepted ? const Color(0xFF40df46) : Colors.white),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -449,14 +457,14 @@ Widget _buildFoodCard({
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('New request added'),
-                        backgroundColor: Colors.green,
+                        backgroundColor: const Color(0xFF40df46),
                         duration: Duration(seconds: 2),
                       ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: const Color(0xFF40df46),
                   foregroundColor: Colors.white,
                 ),
                 child: const Text('Add', style: TextStyle(color: Colors.black)),
