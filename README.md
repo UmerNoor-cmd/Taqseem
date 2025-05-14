@@ -1,4 +1,4 @@
-#   Unified Food Relief & Waste Reduction Solution
+#   Taqseem (Unified Food Relief & Waste Reduction Solution)
 
 This project aims to tackle food insecurity and food waste in Pakistan by creating a platform that connects food donors (restaurants, grocery stores, etc.) with NGOs. The system facilitates efficient food distribution to those in need by automating alerts, coordinating logistics, and ensuring timely pickups. 
 
