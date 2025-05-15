@@ -93,8 +93,8 @@ Watch Taqseem's demo on:
 <br>
 <div align="center">
 <img src="https://i.imgur.com/l5z0K8u.png" height="60"/>
-<img src="https://i.imgur.com/enOjW5j.png" height="60"/>
-<img src="https://i.imgur.com/UoCnNxt.png" height="60"/>
+<img src="https://i.postimg.cc/Bn00NfxT/firebase-icon-logo-brandlogos-net-tcvck.png" height="60"/>
+<img src="https://i.postimg.cc/5yhP41xn/gemini-icon-logo-brandlogos-net-bqzeu-512x512.png" height="60"/>
 <img src="https://i.imgur.com/3tKryg2.png" height="60"/>
 </div>
 
@@ -104,6 +104,8 @@ Watch Taqseem's demo on:
 
 ## 🌟 &nbsp;The Taqseem Team
 
-| <a href="[TEAM_MEMBER_1_LINK]"><img width="200px" src="https://i.postimg.cc/FKp3zGHc/Screenshot-20250516-011338.png" alt=""/></a> | <a href="[TEAM_MEMBER_2_LINK]"><img width="200px" src="https://i.postimg.cc/WzH738SS/Screenshot-20250516-011538.png" alt=""/></a> | <a href="[TEAM_MEMBER_3_LINK]"><img width="200px" src="https://i.postimg.cc/SQvLcZ7f/Screenshot-20250516-011428.png" alt=""/></a> | <a href="[TEAM_MEMBER_3_LINK]"><img width="200px" src="https://i.postimg.cc/Ls2jmG22/Screenshot-20250516-011406.png" alt=""/></a> 
+| <a href="https://github.com/UmerNoor-cmd"><img width="200px" src="https://i.postimg.cc/FKp3zGHc/Screenshot-20250516-011338.png" alt=""/></a> | <a href="https://github.com/waosewajahat"><img width="200px" src="https://i.postimg.cc/WzH738SS/Screenshot-20250516-011538.png" alt=""/></a> | <a href="https://github.com/hanizehra"><img width="200px" src="https://i.postimg.cc/SQvLcZ7f/Screenshot-20250516-011428.png" alt=""/></a> | <a href="https://github.com/ahmsuf"><img width="200px" src="https://i.postimg.cc/Ls2jmG22/Screenshot-20250516-011406.png" alt=""/></a> |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <div align="center"><h3><b><a href="https://github.com/UmerNoor-cmd">Umer Noor</a></b></h3><p><i>DHA Suffa University</i></p></div>                                                                               | <div align="center"><h3><b><a href="https://github.com/waosewajahat">Wajaht Ali</a></b></h3></a><p><i>DHA Suffa University</i></p></div>                                                                          | <div align="center"><h3><b><a href="https://github.com/hanizehra">Hani Zehra</a></b></h3></a><p><i>DHA Suffa University</i></p></div></a>                                                               | <div align="center"><h3><b><a href="https://github.com/ahmsuf">Sufian Ahmed</a></b></h3></a><p><i>DHA Suffa University</i></p></div>  
 
-| <div align="center"><h3><b><a href="https://i.postimg.cc/FKp3zGHc/Screenshot-20250516-011338.png">Umer Noor</a></b></h3></div>          | <div align="center"><h3><b><a href="https://i.postimg.cc/WzH738SS/Screenshot-20250516-011538.png">Wajhat Ali</a></b></h3></div>           | <div align="center"><h3><b><a href="https://i.postimg.cc/SQvLcZ7f/Screenshot-20250516-011428.png">Hani Zehra</a></b></h3></div>         |    <div align="center"><h3><b><a href="https://i.postimg.cc/Ls2jmG22/Screenshot-20250516-011406.png">Sufian Ahmed</a></b></h3></div>         |
+
