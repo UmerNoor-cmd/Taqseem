@@ -1,7 +1,7 @@
 <br>
 <div align="center">
     <div>
-        <img width="300px" src="https://postimg.cc/HjtszZK9" alt="Taqseem Logo"/>
+        <img width="300px" src="https://i.postimg.cc/Pfgpt0Q9/Group-16.png" alt="Taqseem Logo"/>
     </div>
     <div>
     <br>
