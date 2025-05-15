@@ -72,7 +72,7 @@ Watch Taqseem's demo on:
 
 ## 🎯 &nbsp;UN's Sustainable Development Goals in Focus
 
-![SDG2](https://i.imgur.com/9rTlqWe.png)
+![SDG2](https://i.postimg.cc/7h0LGYnc/Screenshot-2025-05-16-005700.png)
 
 <p>
 <strong>Zero Hunger (SDG 2)</strong>: Taqseem directly addresses food insecurity by creating efficient channels to redistribute surplus food to those in need. Our platform helps reduce hunger while minimizing food waste - tackling two critical issues simultaneously.
