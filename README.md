@@ -26,7 +26,7 @@ The challenge is twofold: perfectly good food goes to waste because donors don't
 
 ## 🔍 &nbsp;Our Solution: The Taqseem Ecosystem
 
-### 🍎 &nbsp;For Donors
+### 🧡 &nbsp;For Donors
 - Simple food listing via app, web, or SMS
 - Scheduled pickups for recurring donations
 - Real-time tracking from listing to delivery
@@ -37,12 +37,6 @@ The challenge is twofold: perfectly good food goes to waste because donors don't
 - Smart acceptance system based on capacity
 - Demand mapping to prioritize distribution
 - Volunteer coordination tools
-
-### 🚗 &nbsp;For Volunteers
-- View active pickup requests in their area
-- Simple check-in/check-out system
-- Safety guidelines and support
-- Recognition through badge systems
 
 ## ✨ &nbsp;Our Unique Advantage: Gemini-Powered Matching
 
@@ -55,19 +49,12 @@ When a donor lists food, our AI analyzes:
 The system then instantly recommends the optimal NGO match, reducing decision time from hours to seconds and ensuring food reaches where it's needed most.
 
 ## 🎥 &nbsp;Demo Video
-
-<div style="text-align: center;">
-    <a href="[YOUR_YOUTUBE_LINK]">
-        <img src="https://i.imgur.com/UldzEa3.png" style="width: 80%; height: 80%;"/>
-    </a>
-</div>
-
 <br>
 
 Watch Taqseem's demo on: 
 
 <a href="[YOUR_YOUTUBE_LINK]">
-    <img src="https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white" alt=""/>
+    <img src="https://i.postimg.cc/6pwknLXz/prototype.png" alt=""/>
 </a>
 
 ## 🎯 &nbsp;APAC Solution Challenge Focus Areas
