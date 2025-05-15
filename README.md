@@ -70,20 +70,20 @@ Watch Taqseem's demo on:
     <img src="https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white" alt=""/>
 </a>
 
-## 🎯 &nbsp;UN's Sustainable Development Goals in Focus
+## 🎯 &nbsp;APAC Solution Challenge Focus Areas
 
-![SDG2](https://i.postimg.cc/7h0LGYnc/Screenshot-2025-05-16-005700.png)
+![Sustainability](https://i.postimg.cc/7h0LGYnc/Screenshot-2025-05-16-005700.png)
 
 <p>
-<strong>Zero Hunger (SDG 2)</strong>: Taqseem directly addresses food insecurity by creating efficient channels to redistribute surplus food to those in need. Our platform helps reduce hunger while minimizing food waste - tackling two critical issues simultaneously.
+<strong>Sustainability</strong>: Taqseem reduces food waste by redirecting perfectly edible surplus food from restaurants, events, and individuals that would otherwise end up in landfills, producing harmful methane emissions. Through smart logistics powered by real-time location data and Gemini AI, it matches food with nearby NGOs to minimize spoilage and cut down the energy use associated with long-distance transport. The platform fosters an eco-friendly culture by raising awareness of sustainable food practices and encouraging active participation from both individuals and businesses. By digitizing the entire process—through automated alerts, smart matching, and dashboards—Taqseem conserves valuable resources like fuel, paper, and time, making food redistribution faster, cleaner, and more efficient.
 </p>
 
 <br>
 
-![SDG12](https://i.imgur.com/9rTlqWe.png)
+![Trade](https://i.postimg.cc/vTrQ82Qw/Screenshot-2025-05-16-010749.png)
 
 <p>
-<strong>Responsible Consumption (SDG 12)</strong>: By preventing edible food from reaching landfills, we're reducing methane emissions and the environmental impact of food waste. Our platform makes sustainable food practices accessible to businesses and individuals alike.
+<strong>Trade</strong>: Taqseem operates as a decentralized marketplace for food redistribution, connecting the supply of surplus food from donors with the demand from NGOs, creating a meaningful exchange rooted in social value rather than monetary transactions. It empowers small businesses like restaurants and grocery stores by providing a simple way to donate excess food, helping them cut disposal costs and enhance their public image. The platform also fosters volunteer micro-engagements, allowing individuals to contribute their time and earn badges or recognition—transforming compassion into a new form of value exchange. With its adaptable framework, Taqseem can scale to different regions or countries, building a global network that supports inclusive, sustainable trade.
 </p>
 
 ## ⚙️ &nbsp;Technical Implementation
