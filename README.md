@@ -89,10 +89,65 @@ Watch Taqseem's demo on:
 <h4>Flutter | Firebase | Google Maps API | Gemini AI | </h4>
 </div>
 
+## 🚀 &nbsp;Getting Started
+
+To set up and run the Taqseem Flutter project on your local development environment:
+
+### 📝 &nbsp;Prerequisites
+
+Before you begin, ensure you have the following:
+
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) installed
+- Android Studio (with Android Emulator)
+- An Android or iOS device (optional but recommended)
+- Visual Studio Code or any preferred IDE
+
+### 🛠️ &nbsp;Installation
+
+1. **Clone the Repository**  
+   ```bash
+   git clone https://github.com/your-username/taqseem.git
+   ```
+
+2. **Navigate to the Project Directory**  
+   ```bash
+   cd taqseem
+   ```
+
+3. **Install Dependencies**  
+   ```bash
+   flutter pub get
+   ```
+
+4. **Launch the App**  
+   ```bash
+   flutter run
+   ```
+
+---
+
+## 📱 &nbsp;Setting up an Android Emulator
+
+To test your app without a physical device, follow these steps to set up an emulator:
+
+1. Open **Android Studio**
+2. Navigate to **Tools > Device Manager**
+3. Click on **Create Device**
+4. Choose a phone model (e.g., Pixel 5) and click **Next**
+5. Select a system image (e.g., Android 13 - x86_64) and download if not already installed
+6. Click **Finish** to create the emulator
+7. Press the **Play** ▶️ button to start the emulator
+
+Once the emulator is running, you can use:
+```bash
+flutter run
+```
+to launch the app on the emulator.
+
+---
+
 ## 🌟 &nbsp;The Taqseem Team
 
 | <a href="https://github.com/UmerNoor-cmd"><img width="200px" src="https://i.postimg.cc/FKp3zGHc/Screenshot-20250516-011338.png" alt=""/></a> | <a href="https://github.com/waosewajahat"><img width="200px" src="https://i.postimg.cc/WzH738SS/Screenshot-20250516-011538.png" alt=""/></a> | <a href="https://github.com/hanizehra"><img width="200px" src="https://i.postimg.cc/SQvLcZ7f/Screenshot-20250516-011428.png" alt=""/></a> | <a href="https://github.com/ahmsuf"><img width="200px" src="https://i.postimg.cc/Ls2jmG22/Screenshot-20250516-011406.png" alt=""/></a> |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <div align="center"><h3><b><a href="https://github.com/UmerNoor-cmd">Umer Noor</a></b></h3><p><i>DHA Suffa University</i></p></div>                                                                               | <div align="center"><h3><b><a href="https://github.com/waosewajahat">Wajaht Ali</a></b></h3></a><p><i>DHA Suffa University</i></p></div>                                                                          | <div align="center"><h3><b><a href="https://github.com/hanizehra">Hani Zehra</a></b></h3></a><p><i>DHA Suffa University</i></p></div></a>                                                               | <div align="center"><h3><b><a href="https://github.com/ahmsuf">Sufian Ahmed</a></b></h3></a><p><i>DHA Suffa University</i></p></div>  
-
-
+| <div align="center"><h3><b><a href="https://github.com/UmerNoor-cmd">Umer Noor</a></b></h3><p><i>DHA Suffa University</i></p></div>                                                                               | <div align="center"><h3><b><a href="https://github.com/waosewajahat">Wajaht Ali</a></b></h3></a><p><i>DHA Suffa University</i></p></div>                                                                          | <div align="center"><h3><b><a href="https://github.com/hanizehra">Hani Zehra</a></b></h3></a><p><i>DHA Suffa University</i></p></div></a>                                                               | <div align="center"><h3><b><a href="https://github.com/ahmsuf">Sufian Ahmed</a></b></h3></a><p><i>DHA Suffa University</i></p></div>
