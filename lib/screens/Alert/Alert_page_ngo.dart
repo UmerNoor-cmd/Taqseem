@@ -14,7 +14,7 @@ class AlertPageNgo extends StatefulWidget {
 
 
 class _AlertPageNgoState extends State<AlertPageNgo> {
-  int _currentSection = 1; // 1 = Required (default), 0 = Available
+  int _currentSection = 0; // 1 = Required (default), 0 = Available
   final ScrollController _availableController = ScrollController();
   final ScrollController _requiredController = ScrollController();
 

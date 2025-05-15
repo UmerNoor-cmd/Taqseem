@@ -113,7 +113,7 @@ Future<void> _handleSearch() async {
     );
 
     // Initialize with your API key
-    const apiKey = "LOLNOPE";
+    const apiKey = "nope";
     
     // Show search dialog
     Prediction? p = await PlacesAutocomplete.show(
@@ -367,7 +367,7 @@ void _handleDeliverTap() async {
       const SnackBar(
         content: Text('Please select a location first by tapping the search icon'),
         duration: Duration(seconds: 2),
-      ),
+    )
     );
     return;
   }
@@ -376,7 +376,10 @@ void _handleDeliverTap() async {
   final result = await Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => const AlertPage(initialTab: 1),
+      builder: (context) => AlertPage(
+        initialTab: 1,
+        userLocation: _selectedLocation, // Pass the current location
+      ),
     ),
   );
   

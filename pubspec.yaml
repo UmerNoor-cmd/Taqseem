@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.7.2
+  sdk: ">=2.19.0 <3.0.0"  # Must be at least 2.19.0
 
 dependencies:
   flutter:
@@ -20,6 +20,10 @@ dependencies:
   google_maps_webservice: ^0.0.19
   google_api_headers: ^1.2.0
   http: ^0.13.6
+  google_generative_ai: ^0.4.7
+
+dependency_overrides:
+  http: ^1.1.0  # Force override for google_generative_ai
 
 dev_dependencies:
   flutter_test:

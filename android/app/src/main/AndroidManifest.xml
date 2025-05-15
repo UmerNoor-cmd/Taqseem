@@ -35,8 +35,11 @@
                 <!-- Google Maps API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="LOLNOPE"/>
+            android:value="nope"/>
 
+        <meta-data
+        android:name="com.google.ai.apikey"
+        android:value="nope"/>
 
     </application>
     <!-- Required to query activities that can process text, see:
